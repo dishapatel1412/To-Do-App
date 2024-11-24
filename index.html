@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MEAN Stack To-Do App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body ng-app="todoApp" ng-controller="taskCtrl">
+    <div class="container">
+        <h1 class="my-4">To-Do List</h1>
+        <div class="mb-3">
+            <input type="text" ng-model="newTask.title" placeholder="Task Title" class="form-control" required>
+            <textarea ng-model="newTask.description" placeholder="Task Description" class="form-control mt-2"></textarea>
+            <button ng-click="addTask()" class="btn btn-primary mt-2">Add Task</button>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="task in tasks">
+                <div>
+                    <input type="checkbox" ng-model="task.completed" ng-click="toggleComplete(task)" ng-disabled="task.completed">
+                    <span ng-if="!task.completed">{{ task.title }} - {{ task.description }}</span>
+                    <span ng-if="task.completed"><s>{{ task.title }} - {{ task.description }}</s></span>
+                </div>
+                <button ng-click="editTask(task)" class="btn btn-secondary btn-sm ml-2">Edit</button>
+                <button ng-click="deleteTask(task._id)" class="btn btn-danger btn-sm ml-2">Delete</button>
+            </li>
+        </ul>
+        <div ng-if="editingTask">
+            <h3>Edit Task</h3>
+            <input type="text" ng-model="editingTask.title" class="form-control">
+            <textarea ng-model="editingTask.description" class="form-control mt-2"></textarea>
+            <button ng-click="updateTask()" class="btn btn-success mt-2">Update</button>
+            <button ng-click="cancelEdit()" class="btn btn-warning mt-2">Cancel</button>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <!-- <script src="js/controller.js"></script> -->
+     <script src="./controller.js"></script>
+</body>
+</html>
